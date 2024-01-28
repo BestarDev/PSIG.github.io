@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/a96f92a0ce.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./main.css">
+    <link rel="stylesheet" href="./scrollbar.css">
+    <title>PSIG</title>
+</head>
+<body>
+    <!-- Sidebar Component -->
+    <div class="sidebar offcanvas offcanvas-start show" data-bs-scroll="true" data-bs-backdrop="false" id="sidebar">
+        <div class="offcanvas-header justify-content-center">
+            <a href="./dashboard.html" class="text-decoration-none" style="color: inherit">
+                <h2>
+                    <i class="fa-brands fa-yelp"></i>
+                    <span class="ms-3 sidebar-header">PSIG</span>
+                </h2>
+            </a>
+        </div>
+        <hr class="m-0">
+        <div class="offcanvas-body accordion" id="sidebarContent">
+            <ul class="list-unstyled ps-0">
+                <li class="mb-1">
+                    <div data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" class="sidebar-mainitem">
+                        <a href="./dashboard.html"><i class="fa-brands fa-windows"></i><span class="ms-3">Dashboard</span></a>
+                    </div>
+                    <div class="m-0 p-0" id="dashboard-collapse" data-bs-parent="#sidebarContent"></div>
+                </li>
+                <li class="mb-1">
+                    <div data-bs-toggle="collapse" data-bs-target="#register-collapse" 
+                        class="d-flex align-items-center sidebar-mainitem" onclick="toggleSubitem()">
+                            <i class="fa-solid fa-user"></i><span class="ms-3">Register</span>
+                            <span class="ms-auto me-2" id="subitemShowbtn"><i class="fa-solid fa-chevron-right"></i></span>
+                    </div>
+                    <div class="collapse" id="register-collapse" data-bs-parent="#sidebarContent">
+                        <ul class="list-unstyled fw-normal ps-2 pt-1 pb-1">
+                            <li class="sidebar-subitem"><a href="./notready.html" class="fs-5">Address</a></li>
+                            <li class="sidebar-subitem"><a href="./notready.html" class="fs-5">Assessment</a></li>
+                            <li class="sidebar-subitem"><a href="./notready.html" class="fs-5">Decision</a></li>
+                            <li class="sidebar-subitem"><a href="./notready.html" class="fs-5">Event</a></li>
+                            <li class="sidebar-subitem"><a href="./incident.html" class="fs-5">Incident</a></li>
+                            <li class="sidebar-subitem"><a href="./notready.html" class="fs-5">Intelligence</a></li>
+                            <li class="sidebar-subitem"><a href="./notready.html" class="fs-5">Material</a></li>
+                            <li class="sidebar-subitem"><a href="./notready.html" class="fs-5">Organization</a></li>
+                            <li class="sidebar-subitem"><a href="./notready.html" class="fs-5">Outcome</a></li>
+                            <li class="sidebar-subitem"><a href="./notready.html" class="fs-5">Person</a></li>
+                            <li class="sidebar-subitem"><a href="./notready.html" class="fs-5">Staff</a></li>
+                            <li class="sidebar-subitem"><a href="./notready.html" class="fs-5">Statement</a></li>
+                            <li class="sidebar-subitem"><a href="./notready.html" class="fs-5">Vehicle</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="mb-1">
+                    <div data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" class="sidebar-mainitem">
+                        <a href="./notready.html"><i class="fa-solid fa-screwdriver-wrench"></i><span class="ms-3">Tools</span></a>
+                    </div>
+                    <div class="m-0 p-0" id="dashboard-collapse" data-bs-parent="#sidebarContent">
+                    </div>
+                </li>
+                <li class="mb-1">
+                    <div data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" class="sidebar-mainitem">
+                        <a href="./notready.html"><i class="fa-solid fa-gear"></i><span class="ms-3">Settings</span></a>
+                    </div>
+                    <div class="m-0 p-0" id="dashboard-collapse" data-bs-parent="#sidebarContent">
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Color Mode Toggle Switch Button -->
+    <div class="toggle-colormode d-flex rounded-pill" onclick="toggleColorMode()">
+        <div class="position-absolute" id="switchBall"></div>
+        <span style="margin:0 0.5rem;"><i class="fa-solid fa-sun"></i></span>
+        <span style="margin:0 0.5rem;"><i class="fa-solid fa-moon"></i></span>
+    </div>
+
+    <!-- Chat Board -->
+    <div class="chatboard">
+        <h3 onclick="toggleChatboard()" id="chatboardOpenBtn" class=""><i class="fa-solid fa-comment-dots"></i></h3>
+        <div class="chatboard-main d-none" id="chatboardMain">
+            <div class="chatboard-history d-flex flex-column gap-2" id="chatboardHistory">
+            </div>
+            <div class="d-flex align-items-end gap-2">
+                <textarea class="form-control" cols="50" rows="1" placeholder="Type something here..."
+                    id="inputForm" style="resize: both;" oninput="adjustSize(this)"></textarea>
+                <button type="button" class="btn btn-primary d-flex justify-content-center align-items-center"
+                    onclick="handleRequest()">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span class="ms-2">Send</span>
+                </button>
+            </div>
+            <div class="chatboard-closebtn">
+                <h3 onclick="toggleChatboard()"><i class="fa-solid fa-circle-xmark"></i></h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main d-flex" id="main">
+        <div class="d-flex align-items-center sidebar-btndiv" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
+            onclick="toggleSidebar()">
+            <div class="sidebar-btn"><i class="fa-solid fa-angles-left" id="sidebarToggleBtn"></i></div>
+        </div>
+        <div class="main-content d-flex text-center justify-content-center align-items-center">
+            <h1> This is Dashboard Page</h1>
+        </div>
+    </div>
+    
+    <script src="./main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

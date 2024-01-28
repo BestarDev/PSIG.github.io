@@ -1,0 +1,58 @@
+:root {
+    --incidentbar-width : 250px
+}
+
+.incidentbar {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top:0;
+    right: 0;
+    transform: translate(var(--incidentbar-width), 15%);
+    z-index:100;
+    width: var(--incidentbar-width) !important;
+    height: 80vh;
+    transition: transform 0.3s ease-in-out;
+}
+
+.incidentbar-content {
+    background-color: var(--bs-light-border-subtle);
+    border-radius: 0.5rem 0 0 0.5rem ;
+    border: 2px solid var(--bs-border-color-translucent);
+    overflow-y: scroll;
+}
+
+.incidentbar.show {
+    transform: translate(0, 15%);
+}
+
+.main-with-incidentbar {
+    margin-right: var(--incidentbar-width) !important;
+}
+
+.incidentbar-btndiv {
+    height: 100%;
+    width: 2rem;
+    position: fixed;
+    top: 0;
+    right: 0;
+    transform: translate(50% 50%);
+    transition: all 0.3s ease-in-out;
+}
+
+.incidentbar-btn {
+    padding: 0.7rem 0.2rem 0.7rem 0.6rem;
+    font-size: 1.2rem;
+    height: fit-content;
+    background-color: var(--bs-border-color-translucent);
+    clip-path: ellipse(99% 50% at 100% 50%);
+}
+
+.save-btngroup-div {
+    position: fixed;
+    bottom: 1rem;
+    right: 5rem;
+    background-color: var(--bs-light-border-subtle);
+    padding: 0.3rem;
+    border-radius: 0.5rem;
+}

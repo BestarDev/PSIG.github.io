@@ -1,0 +1,227 @@
+@import url('https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&family=Amaranth&family=Bangers&family=League+Spartan:wght@300&family=Ubuntu:wght@300&family=Viga&display=swap');
+
+:root {
+    --sidebar-width: 310px;
+}
+
+.form-label {
+    margin: 0 !important;
+}
+
+.col-lg-2, .col-lg-4, .col-lg-5, .col-md-4, .col-md-6, .col-md-8, .col-md-12, .col-auto, .col-md-10 {
+    display: flex;
+    align-items: center;
+}
+
+h1, h2, h3, h4, h5 {
+    margin-bottom: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.sidebar {
+    width: var(--sidebar-width) !important;
+    border-radius: 0 0.5rem 0.5rem 0;
+    z-index: 99;
+    font-family: 'Amaranth', sans-serif;
+    overflow-y: scroll;
+}
+
+.sidebar-header {
+    font-family: 'Akaya Kanadaka', sans-serif;
+    font-size: 2.8rem;
+}
+
+.main {
+    margin-left: var(--sidebar-width) !important;
+}
+
+#main {
+    padding-left: 2rem;
+    transition: all 0.3s ease-in-out;
+}
+
+#sidebarToggleBtn {
+    padding: 0.7rem 0.4rem;
+    font-size: 1.2rem;
+}
+
+.sidebar-btndiv {
+    position: fixed;
+    top: 0;
+    left: var(--sidebar-width);
+    transform: translate(50% 50%);
+    height: 100vh;
+    width: 2rem;
+    transition: all 0.3s ease-in-out;
+}
+
+.sidebar-btn {
+    height: fit-content;
+    border: 1px solid var(--bs-border-color-translucent);
+    border-radius: 0 0.3rem  0.3rem 0;
+    border-left: 0px;
+}
+
+.main-content {
+    flex: 2;
+    padding: 1rem;
+}
+
+.sidebar-mainitem {
+    border-radius: 0.3rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding-left: 0.5rem;
+}
+
+.sidebar-mainitem:hover {
+    background-color: var(--bs-dark-bg-subtle);
+    transition: all 0.5s ease-in-out;
+    padding-left: 0.9rem;
+}
+
+.active {
+    background-color: var(--bs-dark-bg-subtle);
+    transition: all 0.5s ease-in-out;
+}
+
+.sidebar-subitem {
+    margin-top: 0.3rem;
+    padding-left: 1rem;
+}
+
+#subitemShowbtn {
+    transition: all 0.2s;
+}
+
+.sidebar-subitem:hover {
+    background-color: var(--bs-dark-bg-subtle);
+    padding-left: 1.3rem;
+    border-radius: 0.3rem;
+    transition: all 0.5s ease-in-out;
+}
+
+.toggle-colormode {
+    position: fixed;
+    right: 1rem;
+    top: 1rem;
+    border: 1px solid var(--bs-light-border-subtle);
+    font-size: 1.4rem;
+    z-index: 9999;
+}
+
+#switchBall {
+    border-radius: 50%;
+    background-color: var(--bs-light-border-subtle);
+    width: 1.8rem;
+    height: 1.8rem;
+    margin: 0.15rem 0.4rem;
+    transform: translateX(2rem);
+    transition: transform 0.3s ease-in-out;
+}
+
+.chatboard {
+    position: fixed;
+    bottom: 1rem;
+    right: 1.5rem;
+    z-index: 9999;
+}
+
+.chatboard-main {
+    padding: 0.4rem;
+    border: 1px solid var(--bs-border-color-translucent);
+    border-radius: 0.5rem;
+    background-color: var(--bs-light-border-subtle);
+    position: relative;
+    width: 35vw;
+}
+
+.chatboard-closebtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+    color: var(--bs-tertiary-color);
+}
+
+.chatboard-closebtn:hover {
+    color: inherit;
+}
+
+.chatboard-history {
+    padding: 1rem 1.5rem;
+    background-color: var(--bs-tertiary-bg);
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+    height: 60vh;
+    overflow-y: scroll;
+}
+
+.response {
+    padding: 0.4rem 0.6rem;
+    max-width: 80%;
+    width: fit-content;
+    border-radius: 0.4rem 0.4rem 0.4rem 0;
+    background-color: var(--bs-border-color);
+    position: relative;
+}
+
+.response:before {
+    content: "";
+    width: 0.7rem;
+    height: 1rem;
+    position: absolute;
+    bottom: 0;
+    left: -0.6rem;
+    background-color: var(--bs-border-color);
+    clip-path: polygon(100% 0%, 0% 100%, 100% 100%);
+}
+
+.request {
+    padding: 0.4rem 0.6rem;
+    max-width: 80%;
+    width: fit-content;
+    border-radius: 0.4rem 0.4rem 0 0.4rem;
+    background-color: var(--bs-secondary-bg);
+    margin-left: auto;
+    position: relative;
+}
+
+.request:before {
+    content: "";
+    width: 0.7rem;
+    height: 1rem;
+    position: absolute;
+    bottom: 0;
+    right: -0.6rem;
+    background-color: var(--bs-secondary-bg);
+    clip-path: polygon(0% 0%, 0% 100%, 100% 100%);
+}
+
+.required-form {
+    position: relative;
+}
+
+.required-form:before {
+    position: absolute;
+    content: '*';
+    color: red;
+    font-size: 1.2rem;
+    left: -0.7rem;
+}
+
+.nav-link {
+    cursor: pointer;
+}
+
+.hide {
+    display: none !important;
+}
+
+.show {
+    display: inherit !important;
+}

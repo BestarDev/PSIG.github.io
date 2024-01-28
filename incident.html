@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/a96f92a0ce.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./main.css">
+    <link rel="stylesheet" href="./scrollbar.css">
+    <link rel="stylesheet" href="./incident.css">
+    <title>PSIG</title>
+</head>
+<body>
+    <!-- Sidebar Component -->
+    <div class="sidebar offcanvas offcanvas-start show" data-bs-scroll="true" data-bs-backdrop="false" id="sidebar">
+        <div class="offcanvas-header justify-content-center">
+            <a href="./dashboard.html" class="text-decoration-none" style="color: inherit">
+                <h2>
+                    <i class="fa-brands fa-yelp"></i>
+                    <span class="ms-3 sidebar-header">PSIG</span>
+                </h2>
+            </a>
+        </div>
+        <hr class="m-0">
+        <div class="offcanvas-body accordion" id="sidebarContent">
+            <ul class="list-unstyled ps-0">
+                <li class="mb-1">
+                    <div data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" class="sidebar-mainitem">
+                        <a href="./dashboard.html"><i class="fa-brands fa-windows"></i><span class="ms-3">Dashboard</span></a>
+                    </div>
+                    <div class="m-0 p-0" id="dashboard-collapse" data-bs-parent="#sidebarContent"></div>
+                </li>
+                <li class="mb-1">
+                    <div data-bs-toggle="collapse" data-bs-target="#register-collapse" 
+                        class="d-flex align-items-center sidebar-mainitem" onclick="toggleSubitem()">
+                            <i class="fa-solid fa-user"></i><span class="ms-3">Register</span>
+                            <span class="ms-auto me-2" id="subitemShowbtn"><i class="fa-solid fa-chevron-right"></i></span>
+                    </div>
+                    <div class="collapse show" id="register-collapse" data-bs-parent="#sidebarContent">
+                        <ul class="list-unstyled fw-normal ps-2 pt-1 pb-1">
+                            <li class="sidebar-subitem"><a href="./notready.html" class="fs-5">Address</a></li>
+                            <li class="sidebar-subitem"><a href="./notready.html" class="fs-5">Assessment</a></li>
+                            <li class="sidebar-subitem"><a href="./notready.html" class="fs-5">Decision</a></li>
+                            <li class="sidebar-subitem"><a href="./notready.html" class="fs-5">Event</a></li>
+                            <li class="sidebar-subitem active"><a href="" class="fs-5">Incident</a></li>
+                            <li class="sidebar-subitem"><a href="./notready.html" class="fs-5">Intelligence</a></li>
+                            <li class="sidebar-subitem"><a href="./notready.html" class="fs-5">Material</a></li>
+                            <li class="sidebar-subitem"><a href="./notready.html" class="fs-5">Organization</a></li>
+                            <li class="sidebar-subitem"><a href="./notready.html" class="fs-5">Outcome</a></li>
+                            <li class="sidebar-subitem"><a href="./notready.html" class="fs-5">Person</a></li>
+                            <li class="sidebar-subitem"><a href="./notready.html" class="fs-5">Staff</a></li>
+                            <li class="sidebar-subitem"><a href="./notready.html" class="fs-5">Statement</a></li>
+                            <li class="sidebar-subitem"><a href="./notready.html" class="fs-5">Vehicle</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="mb-1">
+                    <div data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" class="sidebar-mainitem">
+                        <a href="./notready.html"><i class="fa-solid fa-screwdriver-wrench"></i><span class="ms-3">Tools</span></a>
+                    </div>
+                    <div class="m-0 p-0" id="dashboard-collapse" data-bs-parent="#sidebarContent">
+                    </div>
+                </li>
+                <li class="mb-1">
+                    <div data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" class="sidebar-mainitem">
+                        <a href="./notready.html"><i class="fa-solid fa-gear"></i><span class="ms-3">Settings</span></a>
+                    </div>
+                    <div class="m-0 p-0" id="dashboard-collapse" data-bs-parent="#sidebarContent">
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Incidentbar Component -->
+    <div class="d-flex align-items-center incidentbar-btndiv" id="incidentbarBtnDiv">
+        <div class="incidentbar-btn" onclick="toggleIncidentBar()"><i class="fa-regular fa-note-sticky" id="incidentbarToggleBtn"></i></div>
+    </div>
+
+    <!-- Color Mode Toggle Switch Button -->
+    <div class="toggle-colormode d-flex rounded-pill" onclick="toggleColorMode()">
+        <div class="position-absolute" id="switchBall"></div>
+        <span style="margin:0 0.5rem;"><i class="fa-solid fa-sun"></i></span>
+        <span style="margin:0 0.5rem;"><i class="fa-solid fa-moon"></i></span>
+    </div>
+
+    <!-- Chat Board -->
+    <div class="chatboard">
+        <h3 onclick="toggleChatboard()" id="chatboardOpenBtn" class="d-none"><i class="fa-solid fa-comment-dots"></i></h3>
+        <div class="chatboard-main " id="chatboardMain">
+            <div class="chatboard-history d-flex flex-column gap-2" id="chatboardHistory">
+            </div>
+            <div class="d-flex align-items-end gap-2">
+                <textarea class="form-control" cols="50" rows="1" placeholder="Type something here..." 
+                    id="inputForm" style="resize: both;" oninput="adjustSize(this)"></textarea>
+                <button type="button" class="btn btn-primary d-flex justify-content-center align-items-center"
+                    onclick="handleRequest()">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span class="ms-2">Send</span>
+                </button>
+            </div>
+            <div class="chatboard-closebtn">
+                <h3 onclick="toggleChatboard()"><i class="fa-solid fa-circle-xmark"></i></h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main d-flex" id="main">
+        <div class="d-flex align-items-center sidebar-btndiv" id="sidebarBtnDiv">
+            <div class="sidebar-btn" data-bs-toggle="offcanvas" data-bs-target="#sidebar" onclick="toggleSidebar()"><i class="fa-solid fa-angles-left" id="sidebarToggleBtn"></i></div>
+        </div>
+        <div class="main-content">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" onclick="setActiveTab(event, 1)"><h5>Details</h5></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="setActiveTab(event, 2)"><h5>Custom Fields</h5></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="setActiveTab(event ,3)"><h5>Investigating Notes</h5></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="setActiveTab(event, 4)"><h5>Attachments</h5></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="setActiveTab(event, 5)"><h5>Links</h5></a>
+                </li>
+            </ul>
+            <div class="ps-1 pe-2 me-3 mt-2 row" id="incidentMainContent">
+                <div id="details" class="mb-5 pb-4 d-flex flex-column gap-2 tab-content show">
+                    <!-- Type Form -->
+                    <div class="row">
+                        <div class="col-lg-2 col-md-4">
+                            <label for="type" class="form-label required-form">Type:</label>
+                        </div>
+                        <div class="col-lg-4 col-md-8">
+                            <select class="form-select" id="type">
+                                <option value="Type1">Type 1</option>
+                                <option value="Type2">Type 2</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Reference Form -->
+                    <div class="row">
+                        <div class="col-lg-2 col-md-4">
+                            <label for="reference" class="form-label required-form">Reference:</label>
+                        </div>
+                        <div class="col-lg-4 col-md-8">
+                            <input class="form-control" type="text" id="reference">
+                        </div>
+                    </div>
+                    <!-- How Reported & Date Reported Form -->
+                    <div class="row">
+                        <div class="col-lg-2 col-md-4">
+                            <label for="howReported" class="form-label required-form">How Reported:</label>
+                        </div>
+                        <div class="col-lg-4 col-md-8">
+                            <select class="form-select" id="howReported">
+                                <option value="Type1">Type 1</option>
+                                <option value="Type2">Type 2</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-2 col-md-4 mt-2 ">
+                            <label for="dateReported" class="form-label required-form">Date Reported:</label>
+                        </div>
+                        <div class="col-lg-4 col-md-8 mt-2">
+                            <input class="form-control" type="text" id="dateReported">
+                        </div>
+                    </div>
+                    <!-- Taken By Form -->
+                    <div class="row">
+                        <div class="col-lg-2 col-md-4">
+                            <label for="takenBy" class="form-label">Taken By:</label>
+                        </div>
+                        <div class="col-lg-4 col-md-8">
+                            <select class="form-select" id="takenBy">
+                                <option value="Alhareth Aboud">Alhareth Aboud</option>
+                                <option value="Someone else">Someone else</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Date Occurred Form -->
+                    <div class="row">
+                        <div class="col-lg-2 col-md-4">
+                            <label for="dateOccurred" class="form-label">Date Occurred:</label>
+                        </div>
+                        <div class="col-auto">
+                            <input class="form-control" type="text" id="dateOccurred">
+                        </div>
+                    </div>
+                    <!-- Reported By Form -->
+                    <div class="row">
+                        <div class="col-lg-2 col-md-4">
+                            <label for="reportedBy" class="form-label">Reported By:</label>
+                        </div>
+                        <div class="col-lg-5 col-md-8">
+                            <input class="form-control" type="text" id="reportedBy">
+                        </div>
+                        <div class="col-auto gap-3">
+                            <a class="text-primary">Select Person</a>
+                            <a class="text-primary">Select Staff</a>
+                            <a class="text-primary">Select Organisation</a>
+                        </div>
+                    </div>
+                    <!-- Title Form -->
+                    <div class="row">
+                        <div class="col-lg-2 col-md-4">
+                            <label for="title" class="form-label required-form">Title:</label>
+                        </div>
+                        <div class="col-lg-5 col-md-8">
+                            <input class="form-control" type="text" id="title">
+                        </div>
+                    </div>
+                    <!-- SUBJECT PART -->
+                    <div class="row mt-1 mb-1">
+                        <div class="col-lg-3 col-md-12">
+                            <h5>SUBJECTS</h5>
+                        </div>
+                        <div class="col-auto gap-2 ">
+                            <h5>ADD ORGANISATION</h5>
+                            <h5>ADD PERSON</h5>
+                        </div>
+                        <div class="col-1"></div>
+                    </div>
+                    <!-- Location Form -->
+                    <div class="row">
+                        <div class="col-lg-2 col-md-4">
+                            <label for="location" class="form-label">Location:</label>
+                        </div>
+                        <div class="col-lg-5 col-md-8">
+                            <input class="form-control" type="text" id="location">
+                        </div>
+                        <div class="col-auto gap-3">
+                            <a class="text-primary">Select Location</a>
+                        </div>
+                    </div>
+                    <!-- Notes Form -->
+                    <div class="row">
+                        <div class="col-lg-2 col-md-4">
+                            <label for="notes" class="form-label required-form">Notes:</label>
+                        </div>
+                        <div class="col-lg-10 col-md-12">
+                            <textarea class="form-control" id="notes" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <!-- Assigned To & Case Priority -->
+                    <div class="row">
+                        <div class="col-lg-2 col-md-4">
+                            <label for="assignedTo" class="form-label">Assigned To:</label>
+                        </div>
+                        <div class="col-lg-4 col-md-8">
+                            <select class="form-select" id="assignedTo">
+                                <option value="Type1">Type 1</option>
+                                <option value="Type2">Type 2</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-2 col-md-4 ">
+                            <label for="casePriority" class="form-label required-form">Case Priority:</label>
+                        </div>
+                        <div class="col-lg-4 col-md-8">
+                            <select class="form-select" id="casePriority">
+                                <option value="Type1">Type 1</option>
+                                <option value="Type2">Type 2</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Status & Date Completed -->
+                    <div class="row">
+                        <div class="col-lg-2 col-md-4">
+                            <label for="status" class="form-label required-form">Status:</label>
+                        </div>
+                        <div class="col-lg-4 col-md-8">
+                            <select class="form-select" id="status">
+                                <option value="Type1">Type 1</option>
+                                <option value="Type2">Type 2</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-2 col-md-4 ">
+                            <label for="dateCompleted" class="form-label">Date Completed:</label>
+                        </div>
+                        <div class="col-lg-4 col-md-8">
+                            <input class="form-control" type="text" id="dateCompleted">
+                        </div>
+                    </div>
+                    <!-- Review After -->
+                    <div class="row">
+                        <div class="col-lg-2 col-md-4">
+                            <label for="reviewAfter" class="form-label">Review After:</label>
+                        </div>
+                        <div class="col-lg-2 col-md-4">
+                            <select class="form-select" id="reviewAfter">
+                                <option value="Type1">Type 1</option>
+                                <option value="Type2">Type 2</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-2 col-md-4 d-flex align-items-center">
+                            <span class="me-2">on:</span>
+                            <input class="form-control" type="text" id="reviewAfteron">
+                        </div>
+                    </div>
+                </div>
+                <div id="customFields" class="mb-5 pb-4 d-flex flex-column gap-2 tab-content hide">
+                    <!-- Investigation No Form -->
+                    <div class="row">
+                        <div class="col-lg-2 col-md-4">
+                            <label for="investigationsNo" class="form-label">Investigations No:</label>
+                        </div>
+                        <div class="col-lg-4 col-md-8">
+                            <textarea class="form-control" rows="3" id="investigationsNo"></textarea>
+                        </div>
+                    </div>
+                    <!-- Primary Team & Severity Level -->
+                    <div class="row">
+                        <div class="col-lg-2 col-md-4">
+                            <label for="primaryTeam" class="form-label required-form">Primary Team:</label>
+                        </div>
+                        <div class="col-lg-4 col-md-8">
+                            <select class="form-select" id="primaryTeam">
+                                <option value="Type1">Type 1</option>
+                                <option value="Type2">Type 2</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-2 col-md-4 ">
+                            <label for="severityLevel" class="form-label required-form">Severity Level:</label>
+                        </div>
+                        <div class="col-lg-4 col-md-8">
+                            <select class="form-select" id="severityLevel">
+                                <option value="Type1">Type 1</option>
+                                <option value="Type2">Type 2</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- TT or Sim & HR Case No -->
+                    <div class="row">
+                        <div class="col-lg-2 col-md-4">
+                            <label for="ttorsimNo" class="form-label">TT or SIM No:</label>
+                        </div>
+                        <div class="col-lg-4 col-md-8">
+                            <textarea class="form-control" rows="3" id="ttorsimNo"></textarea>
+                        </div>
+                        <div class="col-lg-2 col-md-4 ">
+                            <label for="hrCaseNo" class="form-label">HR Case No:</label>
+                        </div>
+                        <div class="col-lg-4 col-md-8">
+                            <textarea class="form-control" rows="3" id="hrCaseNo"></textarea>
+                        </div>
+                    </div>
+                    <!-- Root Cause How & Why -->
+                    <div class="row">
+                        <div class="col-lg-2 col-md-4">
+                            <label for="rootCauseHow" class="form-label">Root Cause (How):</label>
+                        </div>
+                        <div class="col-lg-4 col-md-8">
+                            <select class="form-select" id="rootCauseHow">
+                                <option value="Type1">Type 1</option>
+                                <option value="Type2">Type 2</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-2 col-md-4 ">
+                            <label for="rootCauseWhy" class="form-label">Root Cause (Why):</label>
+                        </div>
+                        <div class="col-lg-4 col-md-8">
+                            <select class="form-select" id="rootCauseWhy">
+                                <option value="Type1">Type 1</option>
+                                <option value="Type2">Type 2</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Bussiness Unit -->
+                    <div class="row">
+                        <div class="col-lg-2 col-md-4">
+                            <label for="businessUnit" class="form-label">Business Unit:</label>
+                        </div>
+                        <div class="col-lg-4 col-md-8">
+                            <select class="form-select" id="businessUnit">
+                                <option value="Type1">Type 1</option>
+                                <option value="Type2">Type 2</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Region -->
+                    <div class="row">
+                        <div class="col-lg-2 col-md-4">
+                            <label for="regions" class="form-label required-form">Region:</label>
+                        </div>
+                        <div class="col-lg-4 col-md-8">
+                            <select class="form-select" id="regions">
+                                <option value="Type1">Type 1</option>
+                                <option value="Type2">Type 2</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- RSM & Location Category -->
+                    <div class="row">
+                        <div class="col-lg-2 col-md-4">
+                            <label for="rsm" class="form-label required-form">RSM:</label>
+                        </div>
+                        <div class="col-lg-4 col-md-8">
+                            <select class="form-select" id="rsm">
+                                <option value="Type1">Type 1</option>
+                                <option value="Type2">Type 2</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-2 col-md-4 ">
+                            <label for="locationCategory" class="form-label required-form">Location Category:</label>
+                        </div>
+                        <div class="col-lg-4 col-md-8">
+                            <select class="form-select" id="locationCategory">
+                                <option value="Type1">Type 1</option>
+                                <option value="Type2">Type 2</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- LE Referral -->
+                    <div class="row">
+                        <div class="col-lg-2 col-md-4">
+                            <label for="leReferral" class="form-label">LE Referral:</label>
+                        </div>
+                        <div class="col-lg-4 col-md-8">
+                            <select class="form-select" id="leReferral">
+                                <option value="Type1">Type 1</option>
+                                <option value="Type2">Type 2</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Police Case No -->
+                    <div class="row">
+                        <div class="col-lg-2 col-md-4">
+                            <label for="policeCaseNo" class="form-label">Police Case No:</label>
+                        </div>
+                        <div class="col-lg-4 col-md-8">
+                            <input class="form-control" type="text" id="policeCaseNo">
+                        </div>
+                    </div>
+                    <!-- Disposition -->
+                    <div class="row">
+                        <div class="col-lg-2 col-md-4">
+                            <label for="disposition" class="form-label">Disposition:</label>
+                        </div>
+                        <div class="col-lg-10 col-md-12">
+                            <textarea class="form-control" rows="3" id="disposition"></textarea>
+                        </div>
+                    </div>
+                    <!-- Findings -->
+                    <div class="row">
+                        <div class="col-lg-2 col-md-4">
+                            <label for="findings" class="form-label">Findings:</label>
+                        </div>
+                        <div class="col-lg-10 col-md-12">
+                            <textarea class="form-control" rows="3" id="findings"></textarea>
+                        </div>
+                    </div>
+                    <!-- Recommendations -->
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <label for="recommendations" class="form-label">Recommendations:</label>
+                        </div>
+                        <div class="col-lg-10 col-md-12">
+                            <textarea class="form-control" rows="3" id="recommendations"></textarea>
+                        </div>
+                    </div>
+                    <!-- Approved By & Date Approved -->
+                    <div class="row">
+                        <div class="col-lg-2 col-md-4">
+                            <label for="approvedBy" class="form-label">Approved By:</label>
+                        </div>
+                        <div class="col-lg-4 col-md-8">
+                            <select class="form-select" id="approvedBy">
+                                <option value="Type1">Type 1</option>
+                                <option value="Type2">Type 2</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-2 col-md-4 ">
+                            <label for="dateApproved" class="form-label">Date Approved:</label>
+                        </div>
+                        <div class="col-lg-4 col-md-8">
+                            <input class="form-control" type="text" id="dateApproved">
+                        </div>
+                    </div>
+                </div>
+                <div id="investNote" class="tab-content hide">
+                    <h1>Investigation Notes</h1>
+                </div>
+                <div id="attachment" class="d-flex flex-column gap-2 tab-content hide">
+                    <h1>Attachments</h1>
+                </div>
+                <div id="links" class="mb-5 pb-4 d-flex flex-column gap-2 tab-content hide">
+                    <div class="row mt-2">
+                        <div class="ms-3 col-auto flex-column gap-3">
+                            <h5 class="w-100">ADDRESS</h5>
+                            <h5 class="w-100">ASSESSMENTS</h5>
+                            <h5 class="w-100">DECISIONS</h5>
+                            <h5 class="w-100">OUTCOMES</h5>
+                            <h5 class="w-100">EVENTS</h5>
+                            <h5 class="w-100">INCIDENTS</h5>
+                            <h5 class="w-100">INTELLIGENCE</h5>
+                            <h5 class="w-100">MATERIAL</h5>
+                            <h5 class="w-100">ORGANISATIONS</h5>
+                            <h5 class="w-100">PEOPLE</h5>
+                            <h5 class="w-100">STAFF</h5>
+                            <h5 class="w-100">STATEMENTS</h5>
+                            <h5 class="w-100">VEHICLES</h5>
+                        </div>
+                        <div class="col-auto ms-auto flex-column gap-3">
+                            <h5 class="w-100 text-end">ADD ADDRESS</h5>
+                            <h5 class="w-100 text-end">ADD ASSESSMENTS</h5>
+                            <h5 class="w-100 text-end">ADD DECISIONS</h5>
+                            <h5 class="w-100 text-end">ADD OUTCOMES</h5>
+                            <h5 class="w-100 text-end">ADD EVENTS</h5>
+                            <h5 class="w-100 text-end">ADD INCIDENTS</h5>
+                            <h5 class="w-100 text-end">ADD INTELLIGENCE</h5>
+                            <h5 class="w-100 text-end">ADD MATERIAL</h5>
+                            <h5 class="w-100 text-end">ADD ORGANISATIONS</h5>
+                            <h5 class="w-100 text-end">ADD PEOPLE</h5>
+                            <h5 class="w-100 text-end">ADD STAFF</h5>
+                            <h5 class="w-100 text-end">ADD STATEMENTS</h5>
+                            <h5 class="w-100 text-end">ADD VEHICLES</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex incidentbar p-0" id="incidentbar">
+                    <div class="incidentbar-content p-2">
+                        <div class="p-2 text-center">
+                            <h3>Investigation Note</h3>
+                        </div>
+                        <hr class="m-0">
+                        <h4 class="mb-1">Date & Time</h4>
+                        <input type="datetime-local" class="form-control" id="timeline">
+                        <h4 class="mb-1">Notes</h4>
+                        <textarea class="form-control" style="height: 20vh" placeholder="Please type sth..." id="additionalnotes"></textarea>
+                        <h4 class="mb-1">Date & Time</h4>
+                        <input type="datetime-local" class="form-control" id="timeline">
+                        <h4 class="mb-1">Notes</h4>
+                        <textarea class="form-control" style="height: 20vh" placeholder="Please type sth..." id="additionalnotes"></textarea>
+                        <h4 class="mb-1">Date & Time</h4>
+                        <input type="datetime-local" class="form-control" id="timeline">
+                        <h4 class="mb-1">Notes</h4>
+                        <textarea class="form-control" style="height: 20vh" placeholder="Please type sth..." id="additionalnotes"></textarea>
+                    </div>
+                </div>
+            </div>
+            <!-- Save & Cancel Buttons -->
+            <div class="save-btngroup-div">
+                <div class="d-flex gap-2 align-items-center">
+                    <div class="fs-5 ms-2 me-2 p-2 bg-secondary rounded-2">Investigation No:<span id="incidentNo"></span></div>
+                    <button class="btn btn-primary fs-5 fw-semibold" onclick="saveData('refresh')">Save</button>
+                    <button class="btn btn-primary fs-5 fw-semibold" onclick="saveData('continue')">Save & Continue</button>
+                    <button class="btn btn-primary fs-5 fw-semibold" onclick="readData()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="./main.js"></script>
+    <script src="./incident.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

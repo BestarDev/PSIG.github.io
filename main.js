@@ -76,7 +76,8 @@ const handleRequest = async () => {
 
     const inputData = document.getElementById('inputForm').value
     document.getElementById('inputForm').value = ""
-    const OPENAI_KEY = "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"
+    // My Open AI Key Here
+    const OPENAI_KEY = "***"
 
     const reqDiv = document.createElement('div')
     reqDiv.textContent = inputData
